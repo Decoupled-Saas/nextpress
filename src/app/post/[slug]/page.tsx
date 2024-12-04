@@ -4,12 +4,13 @@ import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 
 interface PostPageProps {
-    params: {
+    params: Promise<{
         slug: string
-    }
+    }>
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function PostPage(props: PostPageProps) {
+    const params = await props.params;
     const post = await getPost(params.slug)
 
     if (!post || post.status !== 'published') {

@@ -6,7 +6,8 @@ import { subscriptionPlans } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import stripe from '@/lib/stripe'
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions)
 
     if (!session || session.user?.role !== 'admin') {
@@ -41,7 +42,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions)
 
     if (!session || session.user?.role !== 'admin') {

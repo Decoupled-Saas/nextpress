@@ -3,7 +3,8 @@ import { getServerSession } from 'next-auth/next'
 import { authOptions } from "@/lib/auth"
 import { updatePost, deletePost } from '@/lib/posts'
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions)
 
     if (!session || !['admin', 'editor'].includes(session.user?.role as string)) {
@@ -30,7 +31,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     const session = await getServerSession(authOptions)
 
     if (!session || !['admin', 'editor'].includes(session.user?.role as string)) {

@@ -11,19 +11,30 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Missing token' }, { status: 400 })
     }
 
-    const verificationToken = await db.select().from(verificationTokens).where(eq(verificationTokens.token, token))
+    const userVerificationTokens = await db
+        .select()
+        .from(verificationTokens)
+        .where(eq(verificationTokens.token, token));
 
-    if (!verificationToken) {
-        return NextResponse.json({ error: 'Invalid token' }, { status: 400 })
+    if (userVerificationTokens.length === 0) {
+        return NextResponse.json({ error: 'Invalid token' }, { status: 400 });
     }
+
+    const verificationToken = userVerificationTokens[0];
 
     if (new Date() > verificationToken.expires) {
-        return NextResponse.json({ error: 'Token expired' }, { status: 400 })
+        return NextResponse.json({ error: 'Token expired' }, { status: 400 });
     }
 
-    await db.update(users).set({ emailVerified: new Date() }).where(eq(users.email, verificationToken.identifier))
-    await db.delete(verificationTokens).where(eq(verificationTokens.token, token))
+    await db
+        .update(users)
+        .set({ emailVerified: new Date() })
+        .where(eq(users.email, verificationToken.identifier));
 
-    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/auth/email-verified`)
+    await db
+        .delete(verificationTokens)
+        .where(eq(verificationTokens.token, token));
+
+    return NextResponse.json({ message: 'Email verified successfully' }, { status: 200 })
 }
 

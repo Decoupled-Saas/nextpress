@@ -14,7 +14,7 @@ export async function POST() {
     }
 
     try {
-        const [user] = await db.select().from(users).where(eq(users.id, session.user.id));
+        const [user] = await db.select().from(users).where(eq(users.email, session.user.email));
 
         if (!user || !user.stripeCustomerId) {
             return NextResponse.json({ error: 'User not found or not a Stripe customer' }, { status: 404 });

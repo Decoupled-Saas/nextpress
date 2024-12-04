@@ -1,46 +1,49 @@
 import { Html, Head, Body, Container, Section, Text, Button, Img } from '@react-email/components';
+import * as React from 'react';
 
 interface WelcomeEmailProps {
     username: string;
     verificationLink: string;
 }
 
-export const WelcomeEmail: React.FC<WelcomeEmailProps> = ({ username, verificationLink }) => (
-    <Html>
-        <Head />
-        <Body style={main}>
-            <Container style={container}>
-                <Img
-                    src={`${process.env.NEXT_PUBLIC_APP_URL}/logo.png`}
-                    width="80"
-                    height="80"
-                    alt="NextPress Logo"
-                    style={logo}
-                />
-                <Text style={heading}>Welcome to NextPress!</Text>
-                <Text style={paragraph}>
-                    Hi {username},
-                </Text>
-                <Text style={paragraph}>
-                    We&#39;re excited to have you on board. NextPress is a powerful CMS built with Next.js,
-                    designed to make content management a breeze.
-                </Text>
-                <Section style={buttonContainer}>
-                    <Button pX={12} pY={12} style={button} href={verificationLink}>
-                        Verify your email
-                    </Button>
-                </Section>
-                <Text style={paragraph}>
-                    If you have any questions, feel free to reach out to our support team.
-                </Text>
-                <Text style={paragraph}>
-                    Best regards,<br />
-                    The NextPress Team
-                </Text>
-            </Container>
-        </Body>
-    </Html>
-);
+export default function WelcomeEmail({ username, verificationLink }: WelcomeEmailProps): React.ReactElement {
+    return (
+        <Html>
+            <Head />
+            <Body style={main}>
+                <Container style={container}>
+                    <Img
+                        src={`${process.env.NEXT_PUBLIC_APP_URL}/logo.png`}
+                        width="80"
+                        height="80"
+                        alt="NextPress Logo"
+                        style={logo}
+                    />
+                    <Text style={heading}>Welcome to NextPress!</Text>
+                    <Text style={paragraph}>
+                        Hi {username},
+                    </Text>
+                    <Text style={paragraph}>
+                        We&#39;re excited to have you on board. NextPress is a powerful CMS built with Next.js,
+                        designed to make content management a breeze.
+                    </Text>
+                    <Section style={buttonContainer}>
+                        <Button pX={12} pY={12} style={button} href={verificationLink}>
+                            Verify your email
+                        </Button>
+                    </Section>
+                    <Text style={paragraph}>
+                        If you have any questions, feel free to reach out to our support team.
+                    </Text>
+                    <Text style={paragraph}>
+                        Best regards,<br />
+                        The NextPress Team
+                    </Text>
+                </Container>
+            </Body>
+        </Html>
+    );
+}
 
 const main = {
     backgroundColor: '#f6f9fc',
@@ -89,6 +92,4 @@ const button = {
     textAlign: 'center' as const,
     display: 'inline-block',
 };
-
-export default WelcomeEmail;
 

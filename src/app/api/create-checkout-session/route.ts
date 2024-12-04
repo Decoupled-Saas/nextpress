@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
             mode: 'subscription',
             success_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription?success=true&session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription?canceled=true`,
-            client_reference_id: session.user.id,
+            client_reference_id: session.user.email,
         });
 
         return NextResponse.json({ sessionId: checkoutSession.id });

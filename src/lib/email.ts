@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { render } from '@react-email/render';
+import { ReactElement } from 'react';
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_SERVER_HOST,
@@ -10,7 +11,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export async function sendEmail({ to, subject, react }: { to: string; subject: string; react: React.ReactElement }) {
+export async function sendEmail({ to, subject, react }: { to: string; subject: string; react: ReactElement }) {
     const html = render(react);
 
     const options = {
