@@ -1,20 +1,19 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
-import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-type Role = 'user' | 'admin' | 'editor'
+type Role = "user" | "admin" | "editor";
 
 export async function checkRole(allowedRoles: Role[]) {
-    const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-    if (!session || !session.user) {
-        redirect('/api/auth/signin')
-    }
+  if (!session || !session.user) {
+    redirect("/api/auth/signin");
+  }
 
-    const userRole = session.user.role as Role
+  const userRole = session.user.role as Role;
 
-    if (!allowedRoles.includes(userRole)) {
-        redirect('/unauthorized')
-    }
+  if (!allowedRoles.includes(userRole)) {
+    redirect("/unauthorized");
+  }
 }
-
