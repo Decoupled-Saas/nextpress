@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: nextpress
+      POSTGRES_USER: nextpress
+      POSTGRES_PASSWORD: nextpress_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgweb:
+    image: sosedoff/pgweb
+    environment:
+      DATABASE_URL: postgres://nextpress:nextpress_password@postgres:5432/nextpress?sslmode=disable
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+

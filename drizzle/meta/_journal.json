@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1733278163775,
+      "tag": "0000_mute_norrin_radd",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1733283805871,
+      "tag": "0001_gifted_talkback",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733285545109,
+      "tag": "0002_free_titania",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1733287008056,
+      "tag": "0003_conscious_toro",
+      "breakpoints": true
+    }
+  ]
+}
