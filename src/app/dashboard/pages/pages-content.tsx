@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { toast } from "sonner"
 import {
@@ -36,7 +35,6 @@ export default function PagesContent() {
     const [pageToDelete, setPageToDelete] = useState<Page | null>(null)
     const [editingPage, setEditingPage] = useState<Page | null>(null)
     const [isCreating, setIsCreating] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         fetchPages()

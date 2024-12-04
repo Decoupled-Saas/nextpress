@@ -17,7 +17,7 @@ export async function getPages(includeUnpublished = false): Promise<Page[]> {
     return db.select().from(pages).where(eq(pages.status, 'published'));
 }
 
-export async function getPage(slug: string): Promise<Page | undefined> {
+export async function getPage(slug: string[]): Promise<Page | undefined> {
     const result = await db.select().from(pages).where(eq(pages.slug, slug));
     return result[0];
 }

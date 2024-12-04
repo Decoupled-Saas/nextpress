@@ -36,6 +36,8 @@ export const users = pgTable('users', {
   role: text('role').notNull().default('user'),
   subscriptionStatus: text('subscriptionStatus').notNull().default('free'),
   subscriptionEndDate: timestamp('subscriptionEndDate'),
+  stripeSubscriptionId: text('stripe_subscription_id'),
+  stripeCustomerId: text('stripe_customer_id'),
 });
 
 export const accounts = pgTable('accounts', {
@@ -71,5 +73,7 @@ export const subscriptionPlans = pgTable('subscription_plans', {
   name: text('name').notNull(),
   price: integer('price').notNull(),
   duration: integer('duration').notNull(), // in days
+  stripeProductId: text('stripe_product_id').notNull(),
+  stripePriceId: text('stripe_price_id').notNull(),
 });
 

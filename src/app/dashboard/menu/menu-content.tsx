@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from "sonner"
@@ -37,7 +36,6 @@ export default function MenuContent() {
     const [editingItem, setEditingItem] = useState<MenuItem | null>(null)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [itemToDelete, setItemToDelete] = useState<MenuItem | null>(null)
-    const router = useRouter()
 
     useEffect(() => {
         fetchMenuItems()

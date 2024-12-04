@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from "@/lib/auth"
 import { updatePost, deletePost } from '@/lib/posts'
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {

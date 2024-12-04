@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@/contexts/theme-context'
 import SessionWrapper from '@/components/session-wrapper'
 import { Toaster } from '@/components/ui/sonner'
+import Layout from "@/components/layout";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
       <SessionWrapper>
         <ThemeProvider>
-          {children}
+            <Layout>
+                {children}
+            </Layout>
           <Toaster />
         </ThemeProvider>
       </SessionWrapper>

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { reorderMenuItems } from '@/lib/menu'
 import { getServerSession } from 'next-auth/next'
-import { authOptions } from '../../auth/[...nextauth]/route'
+import { authOptions } from "@/lib/auth"
 
 export async function PUT(request: NextRequest) {
     const session = await getServerSession(authOptions)

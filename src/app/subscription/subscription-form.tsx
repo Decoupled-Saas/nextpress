@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { toast } from 'sonner'
+import { loadStripe } from '@stripe/stripe-js'
 
 interface SubscriptionPlan {
     id: string
@@ -13,12 +13,13 @@ interface SubscriptionPlan {
     duration: number
 }
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
 export default function SubscriptionForm() {
     const [plans, setPlans] = useState<SubscriptionPlan[]>([])
     const [currentStatus, setCurrentStatus] = useState<string>('')
     const [endDate, setEndDate] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         fetchSubscriptionInfo()
@@ -43,19 +44,28 @@ export default function SubscriptionForm() {
     const handleSubscribe = async (planId: string) => {
         setIsLoading(true)
         try {
-            const response = await fetch('/api/subscriptions', {
+            const response = await fetch('/api/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ planId }),
             })
 
             if (!response.ok) {
-                throw new Error('Failed to process subscription')
+                throw new Error('Failed to create checkout session')
             }
 
-            toast.success('Subscription successful')
-            router.refresh()
-            fetchSubscriptionInfo()
+            const { sessionId } = await response.json()
+            const stripe = await stripePromise
+
+            if (!stripe) {
+                throw new Error('Stripe failed to initialize')
+            }
+
+            const { error } = await stripe.redirectToCheckout({ sessionId })
+
+            if (error) {
+                throw error
+            }
         } catch (error) {
             console.error('Subscription error:', error)
             toast.error('Failed to process subscription')

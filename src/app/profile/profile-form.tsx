@@ -18,6 +18,15 @@ import {
 } from '@/components/ui/form'
 import { toast } from 'sonner'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import SubscriptionManagement from './subscription-management'
+
+interface User {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    emailVerified?: Date | null;
+    role?: string;
+}
 
 const profileSchema = z.object({
     name: z.string().min(2, {
@@ -37,15 +46,15 @@ const passwordSchema = z.object({
     path: ["confirmPassword"],
 })
 
-export default function ProfileForm({ user }: { user: any }) {
+export default function ProfileForm({ user }: { user: User }) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     const profileForm = useForm<z.infer<typeof profileSchema>>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
-            name: user?.name || '',
-            email: user?.email || '',
+            name: user.name || '',
+            email: user.email || '',
         },
     })
 
@@ -112,6 +121,7 @@ export default function ProfileForm({ user }: { user: any }) {
             <TabsList>
                 <TabsTrigger value="profile">Profile</TabsTrigger>
                 <TabsTrigger value="password">Password</TabsTrigger>
+                <TabsTrigger value="subscription">Subscription</TabsTrigger>
             </TabsList>
             <TabsContent value="profile">
                 <Form {...profileForm}>
@@ -201,6 +211,9 @@ export default function ProfileForm({ user }: { user: any }) {
                         </Button>
                     </form>
                 </Form>
+            </TabsContent>
+            <TabsContent value="subscription">
+                <SubscriptionManagement user={user} />
             </TabsContent>
         </Tabs>
     )

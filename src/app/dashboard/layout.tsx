@@ -61,6 +61,11 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
                                         Users
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link href="/dashboard/plans" className="block p-2 hover:bg-primary/10 rounded">
+                                        Plans
+                                    </Link>
+                                </li>
                             </ul>
                         </nav>
                     </aside>
@@ -68,7 +73,7 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
                         {children}
                     </main>
                 </div>
-                <Toaster />
+                <Toaster/>
             </div>
         </ThemeProvider>
     )

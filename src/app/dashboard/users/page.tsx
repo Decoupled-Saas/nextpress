@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth/next";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth"
 import {redirect} from "next/navigation";
 import {db} from "@/lib/db";
 import {users} from "@/lib/db/schema";

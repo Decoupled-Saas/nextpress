@@ -1,10 +1,21 @@
+/* eslint-disable */
 import { getPage } from '@/lib/pages'
 import Layout from '@/components/layout'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 
-export default async function Page({ params }: { params: { slug: string } }) {
-    const page = await getPage(params.slug)
+interface PageProps {
+    params: {
+        slug: string
+    }
+}
+
+type Params = Promise<{ slug: string[] }>
+
+export default async function Page({ params }: {params: Params}) {
+    const { slug } = await params;
+
+    const page = await getPage(slug)
 
     if (!page || page.status !== 'published') {
         notFound()
@@ -21,3 +32,4 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </Layout>
     )
 }
+

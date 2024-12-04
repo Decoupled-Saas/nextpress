@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { toast } from "sonner"
 import {
@@ -37,7 +36,6 @@ export default function PostsContent() {
     const [postToDelete, setPostToDelete] = useState<Post | null>(null)
     const [editingPost, setEditingPost] = useState<Post | null>(null)
     const [isCreating, setIsCreating] = useState(false)
-    const router = useRouter()
 
     useEffect(() => {
         fetchPosts()
