@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:14
+    image: postgres:14@sha256:fbd63b8e1eb2b318d342e8ad279891f622aa5ff69bd95e5683cc915301218bcf
     environment:
       POSTGRES_DB: nextpress
       POSTGRES_USER: nextpress
@@ -11,7 +11,7 @@ services:
       - "5432:5432"
 
   pgweb:
-    image: sosedoff/pgweb
+    image: sosedoff/pgweb@sha256:8f1ed22e10c9da0912169b98b62ddc54930dc39a5ae07b0f1354d2a93d44c6ed
     environment:
       DATABASE_URL: postgres://nextpress:nextpress_password@postgres:5432/nextpress?sslmode=disable
     ports:
@@ -20,7 +20,7 @@ services:
       - postgres
 
   mailpit:
-    image: axllent/mailpit
+    image: axllent/mailpit@sha256:b1f1be18af530d939a11ee8820b379e0c88eeec204d904bfad68862adced3a5a
     container_name: mailpit
     logging:
       driver: 'none'  # disable saving logs
